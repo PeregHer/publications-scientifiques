@@ -88,7 +88,7 @@ class Connexion:
         return count
 
     @classmethod
-    # Insérer un fichier json dans une collcetion donnée
+    # Insérer un fichier json dans une collection donnée
     def insert_json(cls, collection):
         filename = filedialog.askopenfilename()
         cls.open_connexion()
@@ -102,33 +102,3 @@ class Connexion:
         else: 
             col.insert_one(file_data) 
         cls.close_connexion()
-
-# Compter le nombre de documents de la collection publis
-print(f"Il y a {Connexion.get_count()} publications dans la base de données")
-
-# Lister tous les livres (type “Book”)
-# pprint(Connexion.get_articles('Book'))
-
-# Lister les livres depuis 2014
-# pprint(Connexion.get_articles_year('$gt', 2014, 'Book'))
-
-# Lister les publications de l’auteur “Toru Ishida”
-# pprint(Connexion.get_articles_author('Toru Ishida'))
-
-# Lister tous les auteurs distincts
-# pprint(Connexion.get_all_authors())
-
-# Lister tous les auteurs distincts
-# pprint(Connexion.get_articles_author('Toru Ishida', 'title', 1))
-
-# Compter le nombre de ses publications
-# print(Connexion.get_articles_author('Toru Ishida', count=True))
-
-# Compter le nombre de publications depuis 2011 et par type
-# pprint(Connexion.get_number_per_type('$gte', 2011))
-
-# Compter le nombre de publications par auteur et trier le résultat par ordre décroissant
-# pprint(Connexion.get_number_articles_per_author(-1))
-
-# Insérer un json dans la collection test2
-# Connexion.insert_json('test2')
