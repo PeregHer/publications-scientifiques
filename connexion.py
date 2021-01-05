@@ -1,5 +1,4 @@
 import pymongo
-from mdp import mdp
 from pprint import pprint
 import json
 from tkinter import filedialog
@@ -8,8 +7,8 @@ class Connexion:
     @classmethod
     # Se connecter à Atlas
     def connect(cls, database=None):
-        cls.user = 'Pereg'
-        cls.password = mdp
+        cls.user = 'Stephane'
+        cls.password = 'isenbrest'
         cls.database = database
         return pymongo.MongoClient(f"mongodb+srv://{cls.user}:{cls.password}@bel-cluster.1cbyc.mongodb.net/{cls.database}?retryWrites=true&w=majority")
     
