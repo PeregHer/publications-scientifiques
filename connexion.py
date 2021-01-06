@@ -29,7 +29,7 @@ class Connexion:
         cls.open_connexion()
         count = len(list(cls.publications.find({})))
         cls.close_connexion()
-        return count
+        return f"Il y a {count} publications dans la base de données"
 
     @classmethod
     # Lister tous les articles d'un type
@@ -54,7 +54,7 @@ class Connexion:
         articles = list(cls.publications.find({'authors': author}, {'title': 1, '_id': 0}).sort(sort, order))
         cls.close_connexion()
         if count == True:
-            return len(articles)
+            return f"Il y a {len(articles)} publications pour {author}"
         return articles
 
     @classmethod
@@ -102,3 +102,6 @@ class Connexion:
         else: 
             col.insert_one(file_data) 
         cls.close_connexion()
+
+
+print(Connexion.get_articles_author('Toru Ishida', count=True))
