@@ -102,6 +102,3 @@ class Connexion:
         else: 
             col.insert_one(file_data) 
         cls.close_connexion()
-
-
-print(Connexion.get_articles_author('Toru Ishida', count=True))
