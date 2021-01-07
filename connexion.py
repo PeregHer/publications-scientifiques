@@ -90,15 +90,19 @@ class Connexion:
     @classmethod
     # Insérer un fichier json dans une collection donnée
     def insert_json(cls, collection):
-        filename = filedialog.askopenfilename()
+        path = filedialog.askopenfilename()
+        name = path.split('/')[-1]
+        
         cls.open_connexion()
         global client
         client = cls.client
         exec(f"col = client.DBLP.{collection}", globals())
-        with open(filename) as file: 
-            file_data = json.load(file) 
-        if isinstance(file_data, list): 
-            col.insert_many(file_data)   
-        else: 
-            col.insert_one(file_data) 
+        with open(path) as file:
+            data = json.load(file)
+        if isinstance(data, list):
+            col.insert_many(data)
+        else:
+            col.insert_one(data)
         cls.close_connexion()
+
+        return print(f"Le fichier {name} a été inséré dans la colection {collection}")
