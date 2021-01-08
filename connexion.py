@@ -71,12 +71,10 @@ class Connexion:
     # Lister le nombre d'articles de chaque type
     def get_number_per_type(cls, operator, year):
         cls.open_connexion()
-        typ_list = list(cls.publications.find().distinct('type'))
-        count = {}
-        for typ in typ_list:
-            count[typ] = len(list(cls.publications.find({'type': typ, 'year': {operator: year}})))
+        result = list(cls.publications.aggregate(
+            [{'$match':{'year' : {operator : year}}}, {'$group':{'_id': "$type", 'total' : { '$sum' : 1}}}]))
         cls.close_connexion()
-        return count
+        return result
 
     @classmethod
     # Compter le nombre de publications par auteur et trier le résultat dans un ordre choisi
@@ -96,6 +94,7 @@ class Connexion:
         cls.open_connexion()
         global client
         client = cls.client
+        col = None
         exec(f"col = client.DBLP.{collection}", globals())
         with open(path) as file:
             data = json.load(file)
